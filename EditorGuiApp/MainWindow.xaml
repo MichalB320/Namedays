@@ -1,0 +1,122 @@
+﻿<Window x:Class="EditorGuiApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:EditorGuiApp.ViewModel"
+        xmlns:local="clr-namespace:EditorGuiApp"
+        mc:Ignorable="d"
+        Title="Namedays" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance vm:CalendarViewModel}">
+       
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+  
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="New" Click="OnNew"/>
+                <MenuItem Header="Open" Click="OnOpen"/>
+                <MenuItem Header="Save" Click="OnSave"/>
+                <Separator/>
+                <MenuItem Header="Exit" Click="OnExit"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" Click="OnAbout"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Header="Editor">
+                <Grid Name="EditorGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="Filter">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Margin="5,5,5,5">Month: </TextBlock>
+                                    <ComboBox Grid.Column="1" Name="ComboBox" Margin="5,5,5,5" SelectionChanged="OnComboBoxChanged">
+                                        
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Margin="5,5,5,5">Regex filter:</TextBlock>
+                                    <TextBox Grid.Column="1" Name="FilterTextBox" Margin="5,5,5,5" TextChanged="onCahnge"/>
+                                </Grid>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="0">
+                        
+                        <Button Grid.Row="0" Name="ClearFilterButton" Margin="10,22,10,11" Width="80" Click="OnClearFilterClick">Clear filter</Button>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="1">
+                        <TextBox Name="FilteredVypisGui" Margin="1,5,1,5"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Button Grid.Row="0" Margin="10,5,10,5" Width="80" Click="OnAddClick">Add..</Button>
+                            <Button Grid.Row="1" Margin="10,0,10,5" Width="80">Edit..</Button>
+                            <Button Grid.Row="2" Margin="10,0,10,0" Width="80" Click="OnRemoveClick">Remove</Button>
+                            <Grid Grid.Row="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Button Grid.Row="0" VerticalAlignment="Bottom" Margin="10,0,10,0" Width="80" Height="50">
+                                    <TextBlock TextWrapping="Wrap">Show on calendar</TextBlock> <!--https://stackoverflow.com/questions/1449276/multiline-text-in-a-wpf-button-->
+                                </Button>
+                                <TextBlock Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">Count: </TextBlock>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="1" Header="Calendar" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                <StackPanel Orientation="Vertical">
+                    <Button Name="TodayButton" HorizontalAlignment="Center" Margin="0,10,0,10" Width="60" Command="{Binding Age}" Click="onTodayClick">Today</Button>
+                    <Calendar Name="CalendarGui" Margin="10,0,10,10" MouseDoubleClick="OnCalDateChanged"/>
+                    <TextBlock Name="Celebrates" Margin="10,0,10,10" Text="{Binding Age}">celebrates: </TextBlock>
+                    <TextBox Name="VypisGui" Margin="10,0,10,0" VerticalAlignment="Stretch"></TextBox>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>

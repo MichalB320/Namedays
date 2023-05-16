@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ViewerConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\micha\\Downloads\\namedays-sk.csv"
+    }
+  }
+}
