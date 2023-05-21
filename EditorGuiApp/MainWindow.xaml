@@ -83,6 +83,22 @@
                     </Grid>
                     <Grid Grid.Column="0" Grid.Row="1">
                         <TextBox Name="FilteredVypisGui" Margin="1,5,1,5"/>
+
+
+                        <ItemsControl>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock>sasdf</TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <ListBox Name="ListBox" SelectionChanged="OnSelectionChange">
+                            
+                        </ListBox>
+                            
+                        
                     </Grid>
                     <Grid Grid.Column="1" Grid.Row="1">
                         <Grid>
@@ -100,8 +116,8 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <Button Grid.Row="0" VerticalAlignment="Bottom" Margin="10,0,10,0" Width="80" Height="50">
-                                    <TextBlock TextWrapping="Wrap">Show on calendar</TextBlock> <!--https://stackoverflow.com/questions/1449276/multiline-text-in-a-wpf-button-->
+                                <Button Name="ShowOnCalendarButton" Grid.Row="0" VerticalAlignment="Bottom" Margin="10,0,10,0" Width="80" Height="50" Click="OnClicShowOnCalendar">
+                                    <TextBlock TextWrapping="Wrap" >Show on calendar</TextBlock> <!--https://stackoverflow.com/questions/1449276/multiline-text-in-a-wpf-button-->
                                 </Button>
                                 <TextBlock Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">Count: </TextBlock>
                             </Grid>

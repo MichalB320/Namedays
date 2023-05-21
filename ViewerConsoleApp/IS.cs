@@ -1,10 +1,4 @@
 ﻿using JCNUloha2;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewerConsoleApp;
 
@@ -12,6 +6,10 @@ public class IS
 {
     private NameCalendar calendar;
 
+    /// <summary>
+    /// Konštruktor pre inicializáciu objektu IS.
+    /// </summary>
+    /// <param name="cesta"></param>
     public IS(string cesta)
     {
         calendar = new NameCalendar();
@@ -41,6 +39,9 @@ public class IS
         Console.WriteLine("");
     }
 
+    /// <summary>
+    /// Spustí hlavnú funkcionalitu aplikácie.
+    /// </summary>
     public void run()
     {
         bool koniec = false;
@@ -86,6 +87,9 @@ public class IS
         }
     }
 
+    /// <summary>
+    /// Načíta kalendár zo zadaného súboru.
+    /// </summary>
     private void NacitajKalendar()
     {
         Console.Clear();
@@ -119,6 +123,9 @@ public class IS
         }
     }
 
+    /// <summary>
+    /// Zobrazí štatistiku o kalendári mien.
+    /// </summary>
     private void ZobrazStatistiku()
     {
         Console.Clear();
@@ -149,6 +156,9 @@ public class IS
         string? vstup = Console.ReadLine();
     }
 
+    /// <summary>
+    /// Vyhladá mená v kalendári podľa zadaného regulárneho výrazu.
+    /// </summary>
     private void VyhladajMena()
     {
         Console.Clear();
@@ -180,6 +190,9 @@ public class IS
         }
     }
 
+    /// <summary>
+    /// Vyhladá mená v kalendári podľa zadaného dátumu.
+    /// </summary>
     private void VyhladajMenaPodlaDatumu()
     {
         Console.Clear();
@@ -214,12 +227,15 @@ public class IS
         }
     }
 
+    /// <summary>
+    /// Zobrazí kalendár mien v aktuálnom mesiaci.
+    /// </summary>
     private void ZobrazKalendarMienVMesiaci()
     {
         Console.Clear();
         Console.WriteLine("KALENDÁR MENÍN");
         Console.WriteLine($"{DateTime.Now.ToString("MMMM yyyy")}: ");
-      
+
         var filteredList = calendar.GetNamedays().Where(n => n.DayMonth.Month == DateTime.Now.Month);
         foreach (var nameDay in filteredList)
         {

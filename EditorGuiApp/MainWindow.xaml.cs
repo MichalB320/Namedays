@@ -2,20 +2,11 @@
 using JCNUloha2;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace EditorGuiApp;
 
@@ -44,24 +35,18 @@ public partial class MainWindow : Window
         ComboBox.Items.Add("November");
         ComboBox.Items.Add("December");
         //ComboBox.SelectedValue = ComboBox.Items.GetItemAt(0);
+
+        ShowOnCalendarButton.IsEnabled = false;
     }
     private void OnNew(object sender, RoutedEventArgs e)
     {
-        if (_calendar.NameCount < 1)
-        {
-
-        }
-        else
+        if (_calendar.NameCount > 0)
         {
             var buttnos = MessageBoxButton.YesNo;
             var result = MessageBox.Show("Chcete vynulovať kalendár mien?", "Nový", buttnos);
-            if (result == MessageBoxResult.OK)
+            if (result == MessageBoxResult.Yes)
             {
-
-            }
-            else
-            {
-
+                _calendar.Clear();
             }
         }
     }
@@ -107,14 +92,14 @@ public partial class MainWindow : Window
         foreach (var element in filteredList)
             VypisGui.AppendText($"{element.Name}\n");
 
-        
+
         CalendarGui.SelectedDate = DateTime.Now;
     }
 
     private void OnCalDateChanged(object sender, MouseButtonEventArgs e)
     {
         VypisGui.Clear();
-        
+
         DateTime calDate = CalendarGui.SelectedDate!.Value;
         Celebrates.Text = $"{calDate.ToString("dd.MM.yyyy")} celebretes: ";
         var filteredList = _calendar.GetNamedays().Where(n => n.DayMonth.Day == calDate.Day && n.DayMonth.Month == calDate.Month);
@@ -127,29 +112,35 @@ public partial class MainWindow : Window
         ComboBox.SelectedValue = false;
         FilterTextBox.Clear();
         FilteredVypisGui.Clear();
+        ListBox.Items.Clear();
     }
 
     private void onCahnge(object sender, TextChangedEventArgs e)
     {
-        FilteredVypisGui.Clear();
-        FilteredVypisGui.AppendText(FilterTextBox.Text);
+        ListBox.Items.Clear();
+        //FilteredVypisGui.Clear();
+        //FilteredVypisGui.AppendText(FilterTextBox.Text);
         var mesiac = ComboBox.SelectedIndex;
         var filteredList = _calendar.GetNamedays().Where(n => n.DayMonth.Month == mesiac + 1 && n.Name.Contains(FilterTextBox.Text));
         foreach (var element in filteredList)
         {
-            FilteredVypisGui.AppendText($"{element.Name}\n");
+            //FilteredVypisGui.AppendText($"{element.Name}\n");
+            ListBox.Items.Add($"{element.DayMonth.Day}.{element.DayMonth.Month}. \n{element.Name}");
         }
     }
 
     private void OnComboBoxChanged(object sender, SelectionChangedEventArgs e)
     {
-        FilteredVypisGui.Clear();
-        FilteredVypisGui.AppendText(FilterTextBox.Text);
+        //FilteredVypisGui.Clear();
+        ListBox.Items.Clear();
+        //FilteredVypisGui.AppendText(FilterTextBox.Text);
         var mesiac = ComboBox.SelectedIndex;
         var filteredList = _calendar.GetNamedays().Where(n => n.DayMonth.Month == mesiac + 1 && n.Name.Contains(FilterTextBox.Text));
         foreach (var element in filteredList)
         {
-            FilteredVypisGui.AppendText($"{element.Name}\n");
+            //FilteredVypisGui.AppendText($"{element.Name}\n");
+            ListBox.Items.Add($"{element.DayMonth.Day}.{element.DayMonth.Month}. \n{element.Name}");
+            ListBox.Items.Add(element.DayMonth);
         }
     }
 
@@ -170,7 +161,27 @@ public partial class MainWindow : Window
         }
         else
         {
-            
+
         }
+    }
+
+    private void OnClicShowOnCalendar(object sender, RoutedEventArgs e)
+    {
+        string[] riadky = ListBox.SelectedItem.ToString()!.Split(' ');
+        string[] datum = riadky[0].Split('.');
+
+        int den = int.Parse(datum[0]);
+        int mesiac = int.Parse(datum[1]);
+        DateTime date = new DateTime(2001, mesiac, den, 0, 0, 0);
+
+        CalendarGui.SelectedDate = date;
+    }
+
+    private void OnSelectionChange(object sender, SelectionChangedEventArgs e)
+    {
+        if (ListBox.SelectedItem == null || ListBox.Items.Count == 0)
+            ShowOnCalendarButton.IsEnabled = false;
+        else
+            ShowOnCalendarButton.IsEnabled = true;
     }
 }

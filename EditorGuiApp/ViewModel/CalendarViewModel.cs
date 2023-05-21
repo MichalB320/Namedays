@@ -1,10 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 
 namespace EditorGuiApp.ViewModel
 {
@@ -27,11 +21,11 @@ namespace EditorGuiApp.ViewModel
             //set => setProperty(ref Age, value);
         }
 
-        public int ClickCommand;
+        //public int ClickCommand;
 
         public CalendarViewModel()
         {
-            
+
         }
 
     }
